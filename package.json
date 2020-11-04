@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"no test specified\" && exit 1",
     "build": "webpack",
-    "start": "webpack serve --config webpack.config.js"
+    "server": "webpack serve --config webpack.config.js --watch"
   },
   "dependencies": {
     "lodash": "^4.17.20",
@@ -13,6 +13,7 @@
     "webpack-cli": "^4.1.0"
   },
   "devDependencies": {
+    "bootstrap": "^4.5.3",
     "webpack-dev-server": "^3.11.0"
   },
   "keywords": [],
