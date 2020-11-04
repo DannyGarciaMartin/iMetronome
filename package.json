@@ -1,0 +1,17 @@
+{
+  "name": "iMetronome",
+  "description": "Blog / Portfolio",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"no test specified\" && exit 1"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "webpack-cli": "^4.1.0",
+    "webpack": "^5.4.0"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
