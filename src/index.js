@@ -1,12 +1,10 @@
-import _ from 'lodash';
+import ReactDOM from 'react-dom';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import App from "./components/App.js";
 
-function component() {
-  const element = document.createElement('div');
-
-  // lodash now imported by this script - line 1
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-  return element;
-}
-
-document.body.appendChild(component());
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+, document.getElementById('app'));
