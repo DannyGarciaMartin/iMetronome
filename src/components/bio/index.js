@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Logo } from "./../nav";
-import Doggie from "/private/danny-maymay.jpg";
+import Doggie from "../../../private/danny-maymay.jpg";
 import styled from 'styled-components';
 
 class Biography extends Component {
@@ -10,12 +10,15 @@ class Biography extends Component {
 
     this.state = {
       counter: 1,
+      active: false,
       punchList: {
         a: true,
         b: false,
         c: false,
       },
     };
+    this.clearInterval = this.clearInterval.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -45,9 +48,26 @@ class Biography extends Component {
       }
     }, 3000);
   }
-  componentWillUnmount() {
+
+  clearInterval() {
     clearInterval(this.intervals);
   }
+
+  handleClick(type) {
+    this.clearInterval();
+    this.setPunchList("a", false);
+    this.setPunchList("b", false);
+    this.setPunchList("c", false);
+    this.setPunchList(type, true);
+    this.setState({
+      active: type,  
+    });
+  }
+
+  componentWillUnmount() {
+    this.clearInterval();
+  }
+
   setPunchList(item, value) {
     const punchList = this.state.punchList;
     this.setState({
@@ -60,16 +80,25 @@ class Biography extends Component {
 
   render() {
     const punchList = this.state.punchList;
-    const aType = punchList.a ? "active" : "inactive";
-    const bType = punchList.b ? "active" : "inactive";
-    const cType = punchList.c ? "active" : "inactive";
+    const active = this.state.active;
+    
+    let aType = punchList.a ? "active" : "inactive";
+    let bType = punchList.b ? "active" : "inactive";
+    let cType = punchList.c ? "active" : "inactive";
+
+    if (this.state.active) {
+      aType = active === "a" ? "active" : "inactive";
+      bType = active === "b" ? "active" : "inactive";
+      cType = active === "c" ? "active" : "inactive";
+    }
+
     return (
       <div className={this.props.className}>
         <Section>
           <div className="punch-list">
-            <H1 className={aType}>Danny Martin</H1>
-            <H1 className={bType}>Web Developer</H1>
-            <H1 className={cType}>Foodie</H1>
+            <H1 onClick={this.handleClick.bind(null, "a")} className={aType}>Danny Martin</H1>
+            <H1 onClick={this.handleClick.bind(null, "b")} className={bType}>Web Developer</H1>
+            <H1 onClick={this.handleClick.bind(null, "c")} className={cType}>Foodie</H1>
           </div>
           <Logo className="logo" src={Doggie}>
           </Logo>
@@ -102,6 +131,7 @@ const Section = styled.section`
 `;
 const H1 = styled.h1`
   color: #333;
+  cursor: pointer;
 `;
 
 export default styled(Biography)`

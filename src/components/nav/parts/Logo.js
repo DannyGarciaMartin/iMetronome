@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Gir from '/private/gir.jpg';
+import Gir from '../../../../private/gir.jpg';
 export class Logo extends React.Component {
   render() {
     return (

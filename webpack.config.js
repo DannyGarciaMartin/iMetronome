@@ -5,11 +5,8 @@ const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
-  entry: {
-    app: './src/index.js',
-  },
   output: {
-    filename: '[name].js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     sourceMapFilename: '[name].[hash:8].map',
     chunkFilename: '[id].[hash:8].js',
@@ -22,7 +19,7 @@ module.exports = {
     compress: true,
     hot: true,
     inline: true,
-    filename: 'main.js',
+    filename: '[name].bundle.js',
     historyApiFallback: true
   },
   resolve: {
@@ -38,9 +35,16 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|gif)(\?.*$|$)/,
         use: [
-          'url-loader',
+	  {
+            loader: 'url-loader',
+	    'options': {
+	      limit: 8192,
+	      name: '[name].[ext]',
+	      publicPath: '/'
+	    }
+	  }
         ]
       }
     ]
@@ -55,9 +59,8 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: 'async',
-      minSize: 20000,
-      minRemainingSize: 0,
-      maxSize: 0,
+      minSize: 0,
+      maxSize: 20000,
       minChunks: 1,
       maxAsyncRequests: 30,
       maxInitialRequests: 30,
